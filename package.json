@@ -1,0 +1,29 @@
+{
+  "name": "wsl-fixtures-scraper",
+  "version": "1.0.0",
+  "description": "Women's Super League fixtures scraper using Playwright",
+  "type": "module",
+  "main": "main/scrape-all-wsl-fixtures.js",
+  "scripts": {
+    "start": "node main/scrape-all-wsl-fixtures.js",
+    "test": "node main/test-fixtures.js",
+    "scrape-seasons": "node main/wsl-seasons-scraper.js",
+    "run-wsl": "node main/run-wsl-scraper.js"
+  },
+  "keywords": [
+    "scraping",
+    "wsl",
+    "football",
+    "fixtures",
+    "playwright"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
