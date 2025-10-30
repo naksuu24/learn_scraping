@@ -170,8 +170,13 @@ async function scrapeWSLSeasons() {
           const cellText = cell.textContent.trim();
           const dataStat = header.dataStat;
 
-          // Skip empty cells
-          if (!cellText) return;
+          // Skip empty cells,
+          // Instead of skipping, we might want to add null or N/A
+          // if (!cellText) return;
+          if (!cellText) {
+            rowData[fieldName] = null; // or "N/A"
+            return;
+          }
 
           // Map data-stat attributes to field names, with fallbacks
           let fieldName;
@@ -218,6 +223,7 @@ async function scrapeWSLSeasons() {
               case "top_scorer":
                 fieldName = "top_scorer";
                 break;
+              // I think assists mapping isn't needed -- IGNORE --
               case "most assists":
               case "assists":
                 fieldName = "most_assists";
@@ -284,12 +290,15 @@ async function scrapeWSLSeasons() {
       source_url: url,
       seasons_count: seasonsData.length,
       data_fields: seasonsData.length > 0 ? Object.keys(seasonsData[0]) : [],
+      // We dont have the winner for the latest year comp
+      // Is there a way to fix it and just add None
       seasons: seasonsData,
+      // We actually dont need Metadata
       metadata: {
         scraping_method: "playwright",
         browser: "msedge",
         extraction_date: new Date().toISOString(),
-        page_structure: pageStructure,
+        // page_structure: pageStructure,
       },
     };
 
@@ -312,6 +321,7 @@ async function scrapeWSLSeasons() {
 
     // Convert to CSV and save
     try {
+        // This Map to CSV is not working 
       const csvContent = convertToCSV(jsonData);
       fs.writeFileSync(csvFilename, csvContent);
       console.log(`Data has been saved to ${csvFilename}`);

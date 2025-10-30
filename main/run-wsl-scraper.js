@@ -10,7 +10,7 @@ async function runWSLScraper() {
     console.log("=".repeat(60));
 
     // First analyze the page structure (optional, for debugging)
-    console.log("\n1. Analyzing page structure...");
+    // console.log("\n1. Analyzing page structure...");
     // await analyzeWSLPageStructure();
 
     // Then run the main scraper
