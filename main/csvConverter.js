@@ -66,10 +66,10 @@ export function saveToCSV(data, filename, headers = null) {
     }
 
     fs.writeFileSync(filename, csvContent, "utf8");
-    console.log(`✅ CSV file saved: ${filename}`);
+    console.log(`CSV file saved: ${filename}`);
     return filename;
   } catch (error) {
-    console.error(`❌ Error saving CSV file: ${error.message}`);
+    console.error(`Error saving CSV file: ${error.message}`);
     throw error;
   }
 }

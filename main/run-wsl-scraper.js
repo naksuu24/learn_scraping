@@ -24,7 +24,7 @@ async function runWSLScraper() {
 
     return data;
   } catch (error) {
-    console.error("\n❌ Scraping failed:", error.message);
+    console.error("\n Scraping failed:", error.message);
     console.error("Full error:", error);
   }
 }
