@@ -1,0 +1,250 @@
+{
+  "timestamp": "2025-10-30T07:37:15.409Z",
+  "source": "fbref.com",
+  "competition": "Women's Super League",
+  "country": "England",
+  "gender": "Women",
+  "competition_id": "189",
+  "source_url": "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons",
+  "seasons_count": 10,
+  "data_fields": [
+    "season",
+    "season_url",
+    "competition",
+    "competition_url",
+    "squads",
+    "top_scorer",
+    "top_scorer_url",
+    "league",
+    "country",
+    "gender"
+  ],
+  "seasons": [
+    {
+      "season": "2025-2026",
+      "season_url": "https://fbref.com/en/comps/189/Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/Womens-Super-League-Stats",
+      "squads": 12,
+      "top_scorer": "Melvine Malard - 5",
+      "top_scorer_url": "https://fbref.com/en/players/e99919aa/Melvine-Malard",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2024-2025",
+      "season_url": "https://fbref.com/en/comps/189/2024-2025/2024-2025-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2024-2025/2024-2025-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 60,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2024-2025/Chelsea-Women-Stats",
+      "top_scorer": "Alessia Russo, Khadija Shaw - 12",
+      "top_scorer_url": "https://fbref.com/en/players/043d38be/Alessia-Russo",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2023-2024",
+      "season_url": "https://fbref.com/en/comps/189/2023-2024/2023-2024-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2023-2024/2023-2024-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 55,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2023-2024/Chelsea-Women-Stats",
+      "top_scorer": "Khadija Shaw - 21",
+      "top_scorer_url": "https://fbref.com/en/players/915083f0/Khadija-Shaw",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2022-2023",
+      "season_url": "https://fbref.com/en/comps/189/2022-2023/2022-2023-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2022-2023/2022-2023-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 58,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2022-2023/Chelsea-Women-Stats",
+      "top_scorer": "Rachel Daly - 22",
+      "top_scorer_url": "https://fbref.com/en/players/7fa35ec9/Rachel-Daly",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2021-2022",
+      "season_url": "https://fbref.com/en/comps/189/2021-2022/2021-2022-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2021-2022/2021-2022-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 56,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2021-2022/Chelsea-Women-Stats",
+      "top_scorer": "Sam Kerr - 20",
+      "top_scorer_url": "https://fbref.com/en/players/6a435e8d/Sam-Kerr",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2020-2021",
+      "season_url": "https://fbref.com/en/comps/189/2020-2021/2020-2021-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2020-2021/2020-2021-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 57,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2020-2021/Chelsea-Women-Stats",
+      "top_scorer": "Sam Kerr - 21",
+      "top_scorer_url": "https://fbref.com/en/players/6a435e8d/Sam-Kerr",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2019-2020",
+      "season_url": "https://fbref.com/en/comps/189/2019-2020/2019-2020-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2019-2020/2019-2020-Womens-Super-League-Stats",
+      "squads": 12,
+      "champion": "Chelsea",
+      "champion_points": 39,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2019-2020/Chelsea-Women-Stats",
+      "top_scorer": "Vivianne Miedema - 16",
+      "top_scorer_url": "https://fbref.com/en/players/fa4e4c0a/Vivianne-Miedema",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2018-2019",
+      "season_url": "https://fbref.com/en/comps/189/2018-2019/2018-2019-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League",
+      "competition_url": "https://fbref.com/en/comps/189/2018-2019/2018-2019-Womens-Super-League-Stats",
+      "squads": 11,
+      "champion": "Arsenal",
+      "champion_points": 54,
+      "champion_url": "https://fbref.com/en/squads/411b1108/2018-2019/Arsenal-Women-Stats",
+      "top_scorer": "Vivianne Miedema - 22",
+      "top_scorer_url": "https://fbref.com/en/players/fa4e4c0a/Vivianne-Miedema",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2017-2018",
+      "season_url": "https://fbref.com/en/comps/189/2017-2018/2017-2018-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League 1",
+      "competition_url": "https://fbref.com/en/comps/189/2017-2018/2017-2018-Womens-Super-League-Stats",
+      "squads": 10,
+      "champion": "Chelsea",
+      "champion_points": 44,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2017-2018/Chelsea-Women-Stats",
+      "top_scorer": "Ellen White - 15",
+      "top_scorer_url": "https://fbref.com/en/players/87740aba/Ellen-White",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    },
+    {
+      "season": "2017",
+      "season_url": "https://fbref.com/en/comps/189/2017/2017-Womens-Super-League-Stats",
+      "competition": "FA Women's Super League 1",
+      "competition_url": "https://fbref.com/en/comps/189/2017/2017-Womens-Super-League-Stats",
+      "squads": 10,
+      "champion": "Chelsea",
+      "champion_points": 19,
+      "champion_url": "https://fbref.com/en/squads/a6a4e67d/2017/Chelsea-Women-Stats",
+      "top_scorer": "Fran Kirby - 6",
+      "top_scorer_url": "https://fbref.com/en/players/bd91e11f/Fran-Kirby",
+      "league": "Women's Super League",
+      "country": "England",
+      "gender": "F"
+    }
+  ],
+  "metadata": {
+    "scraping_method": "playwright",
+    "browser": "msedge",
+    "extraction_date": "2025-10-30T07:37:15.410Z",
+    "page_structure": {
+      "title": "FA Women's Super League Seasons | FBref.com",
+      "url": "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons",
+      "tablesFound": 10,
+      "tables": [
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "",
+          "className": "",
+          "headers": [],
+          "bodyRowCount": 4
+        },
+        {
+          "id": "seasons",
+          "className": "sortable stats_table now_sortable",
+          "caption": "FA Women's Super League Seasons Table",
+          "headers": [
+            "Season",
+            "Competition Name",
+            "# Squads",
+            "Champion",
+            "Top Scorer"
+          ],
+          "bodyRowCount": 10
+        }
+      ]
+    }
+  }
+}

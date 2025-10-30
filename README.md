@@ -1,236 +1,292 @@
-# Women's Soccer Data Scraping
+# WSL Fixtures Scraper# WSL Fixtures Scraper
 
-Learning web scraping techniques and tools for women's soccer data, specifically targeting WSL (Women's Super League).
+A Node.js web scraping project to collect Women's Super League (WSL) fixtures data using Playwright.A Node.js web scraping project to collect Women's Super League (WSL) fixtures data using Playwright.
 
-## 🚀 Quick Start - WSL Data via API (RECOMMENDED)
+## 📋 Prerequisites## 📋 Prerequisites
 
-### 1. Get Free API Access
+- Node.js (v16.0.0 or higher)- Node.js (v16.0.0 or higher)
 
-1. Go to [API-Football on RapidAPI](https://rapidapi.com/api-sports/api/api-football)
-2. Sign up for free account (100 requests/day)
-3. Subscribe to free plan and get your API key
-
-### 2. Configure API Key
-
-```bash
-# Option 1: Environment variable (Windows)
-set RAPIDAPI_KEY=your_key_here
-
-# Option 2: Create .env file
-copy .env.template .env
-# Edit .env and add your key
-```
-
-### 3. Run WSL Scraper
-
-```bash
-# Get current season WSL fixtures and results
-python wsl_api_football.py
-
-# Save to specific file
-python wsl_api_football.py --output wsl_2024_25.csv
-
-# Save as Parquet
-python wsl_api_football.py --parquet wsl_data.parquet
-
-# Get previous season
-python wsl_api_football.py --season 2023
-```
-
-## 📁 Available Scripts
-
-- **`wsl_api_football.py`** - 🏆 Main WSL scraper using API-Football (RapidAPI)
-- **`comprehensive_womens_api_test.py`** - Test multiple women's soccer APIs
-- **`working_womens_api.py`** - Working example with German women's league
-- **`womens_soccer_final_summary.py`** - Complete research summary
-
-## 🔧 Requirements
-
-```bash
-pip install requests pandas beautifulsoup4 python-dotenv
-```
+- npm (comes with Node.js)- npm (comes with Node.js)
 
 ---
 
+# STEP-BY-STEP GUIDE: How to Run the Scraper# STEP-BY-STEP GUIDE: How to Run the Scraper
+
+## Step 1: Install Dependencies## Step 1: Install Dependencies
+
+Open PowerShell and navigate to the project root directory:Open PowerShell and navigate to the project root directory:
+
+`powershell`powershell
+
+cd C:\Users\Naufal\OneDrive\Documents\learn_scrapingcd C:\Users\Naufal\OneDrive\Documents\learn_scraping
+
+````
+
+
+
+Install the required npm packages:Install the required npm packages:
+
+
+
+```powershell```powershell
+
+npm installnpm install
+
+````
+
+## Step 2: Install Playwright Browsers## Step 2: Install Playwright Browsers
+
+Install the browsers needed for web scraping:Install the browsers needed for web scraping:
+
+`powershell`powershell
+
+npx playwright installnpx playwright install
+
+````
+
+
+
+This will download Chromium, Firefox, and WebKit browsers (~400MB).This will download Chromium, Firefox, and WebKit browsers (~400MB).
+
+
+
+## Step 3: Navigate to the Main Directory## Step 3: Navigate to the Main Directory
+
+
+
+**⚠️ CRITICAL:** You MUST run the scraper from inside the `main` directory.**⚠️ CRITICAL:** You MUST run the scraper from inside the `main` directory.
+
+
+
+```powershell```powershell
+
+cd maincd main
+
+````
+
+Verify you're in the correct directory:Verify you're in the correct directory:
+
+`powershell`powershell
+
+pwdpwd
+
+```````
+
+
+
+**Expected output:** `C:\Users\Naufal\OneDrive\Documents\learn_scraping\main`**Expected output:** `C:\Users\Naufal\OneDrive\Documents\learn_scraping\main`
+
+
+
+## Step 4: Run the Scraper## Step 4: Run the Scraper
+
+
+
+**⚠️ IMPORTANT:** You must run `run-wsl-scraper.js` first to get the seasons data before running any fixture scrapers.**⚠️ IMPORTANT:** You must run `run-wsl-scraper.js` first to get the seasons data before running any fixture scrapers.
+
+
+
+### First Time Setup: Get Seasons Data### First Time Setup: Get Seasons Data
+
+Run this first to scrape WSL seasons metadata:
+
+```powershellRun this first to scrape WSL seasons metadata:
+
+node run-wsl-scraper.js
+
+``````powershell
+
+node run-wsl-scraper.js
+
+This will create the seasons data file that the fixture scrapers need.```
+
+
+
+### Then Choose Your Scraping Option:This will create the seasons data file that the fixture scrapers need.
+
+
+
+#### Option A: Test Scraper (Recommended First Run)### Then Choose Your Scraping Option:
+
+Tests with just 2 seasons (~2-3 minutes):
+
+```powershell### Option A: Test Scraper (Recommended First Run)
+
+node test-fixtures.js
+
+```Tests with just 2 seasons (~2-3 minutes):
+
+
+
+#### Option B: Full Scraper (All 10 Seasons)```powershell
+
+Scrapes all WSL seasons (~15-25 minutes, ~1,300 fixtures):node test-fixtures.js
+
+```powershell```
+
+node scrape-all-wsl-fixtures.js
+
+```### Option B: Full Scraper (All 10 Seasons)
+
+
+
+## Step 5: Check Your ResultsScrapes all WSL seasons (~15-25 minutes, ~1,300 fixtures):
+
+
+
+Once complete, check the `data` folder for output files:```powershell
+
+node scrape-all-wsl-fixtures.js
+
+```powershell```
+
+ls data
+
+```## Step 5: Check Your Results
+
+
+
+**Expected files:**Once complete, check the `data` folder for output files:
+
+- `wsl_all_seasons_fixtures_[date].json` - All fixtures (JSON)
+
+- `wsl_all_fixtures_[date].csv` - All fixtures (CSV)```powershell
+
+- `wsl_fixtures_summary_[date].csv` - Summary statisticsls data
+
+- Individual season JSON and CSV files```
+
+
+
+---**Expected files:**
+
+
+
+## 📁 Project Structure- `wsl_all_seasons_fixtures_[date].json` - All fixtures (JSON)
+
+- `wsl_all_fixtures_[date].csv` - All fixtures (CSV)
+
+```- `wsl_fixtures_summary_[date].csv` - Summary statistics
+
+learn_scraping/- Individual season JSON and CSV files
+
+├── package.json                    # Project configuration and dependencies
+
+├── README.md                       # This file---
+
+├── node_modules/                   # Installed dependencies
+
+└── main/                          # Main application directory# Women's Soccer Data Scraping
+
+    ├── scrape-all-wsl-fixtures.js # Full scraper (all 10 seasons)
+
+    ├── test-fixtures.js           # Test scraper (2 seasons)Learning web scraping techniques and tools for women's soccer data, specifically targeting WSL (Women's Super League).
+
+    ├── wsl-fixtures-scraper.js    # Core fixtures scraping logic
+
+    ├── wsl-seasons-scraper.js     # Seasons data scraper## 🚀 Quick Start - WSL Data via API (RECOMMENDED)
+
+    ├── run-wsl-scraper.js         # WSL scraper runner
+
+    ├── csvConverter.js            # CSV conversion utilities### 1. Get Free API Access
+
+    └── data/                      # Output directory for scraped data
+
+        ├── *.json                 # JSON data files1. Go to [API-Football on RapidAPI](https://rapidapi.com/api-sports/api/api-football)
+
+        └── *.csv                  # CSV data files2. Sign up for free account (100 requests/day)
+
+```3. Subscribe to free plan and get your API key
+
+
+
+## 📊 Output Files### 2. Configure API Key
+
+
+
+All scraped data is saved in the `main/data/` directory:```bash
+
+# Option 1: Environment variable (Windows)
+
+### Main Output Files:set RAPIDAPI_KEY=your_key_here
+
+- `wsl_all_seasons_fixtures_[date].json` - Complete fixtures data for all seasons
+
+- `wsl_fixtures_summary_[date].csv` - Summary statistics# Option 2: Create .env file
+
+- `wsl_all_fixtures_[date].csv` - All fixtures in CSV formatcopy .env.template .env
+
+# Edit .env and add your key
+
+### Individual Season Files:```
+
+- `wsl_fixtures_[season]_[date].json` - Individual season fixtures (JSON)
+
+- `wsl_fixtures_[season]_[date].csv` - Individual season fixtures (CSV)### 3. Run WSL Scraper
+
+
+
+### Seasons Data:```bash
+
+- `womens_super_league_seasons_[date].json` - Seasons metadata# Get current season WSL fixtures and results
+
+- `womens_super_league_seasons_[date].csv` - Seasons data in CSVpython wsl_api_football.py
+
+
+
+## ⏱️ Expected Runtime# Save to specific file
+
+python wsl_api_football.py --output wsl_2024_25.csv
+
+- **Test Scraper:** ~2-3 minutes (2 seasons)
+
+- **Full Scraper:** ~15-25 minutes (all 10 seasons)# Save as Parquet
+
+- **Expected Output:** ~1,300+ fixturespython wsl_api_football.py --parquet wsl_data.parquet
+
+
+
+## 🎯 Features# Get previous season
+
+python wsl_api_football.py --season 2023
+
+- ✅ Scrapes all 10 WSL seasons (2014-2015 to 2024-2025)```
+
+- ✅ Extracts comprehensive fixture data (dates, teams, scores, venues, etc.)
+
+- ✅ Concurrent scraping (2 seasons at a time) for efficiency## 📁 Available Scripts
+
+- ✅ Robust error handling and retry logic
+
+- ✅ Automatic file generation (JSON and CSV formats)- **`wsl_api_football.py`** - 🏆 Main WSL scraper using API-Football (RapidAPI)
+
+- ✅ Progress tracking and detailed logging- **`comprehensive_womens_api_test.py`** - Test multiple women's soccer APIs
+
+- ✅ Summary statistics generation- **`working_womens_api.py`** - Working example with German women's league
+
+- **`womens_soccer_final_summary.py`** - Complete research summary
+
+## 📄 Data Source
+
+## 🔧 Requirements
+
+FBref URL: https://fbref.com/en/comps/189/2024-2025/schedule/2024-2025-Womens-Super-League-Scores-and-Fixtures
+
+```bash
+
+## 📄 Licensepip install requests pandas beautifulsoup4 python-dotenv
+
+```
+
+MIT
+
+---
+
+## 👤 Author
+
 ## 🌐 Alternative: FBref Web Scraping (Node.js)
+
+naksuu24
 
 Original FBref URL: https://fbref.com/en/comps/189/2024-2025/schedule/2024-2025-Womens-Super-League-Scores-and-Fixtures
 
-# WSL Fixtures CSV Conversion - Complete Implementation
-
-## ✅ What Was Accomplished
-
-I've successfully added comprehensive CSV conversion functionality to the WSL fixtures scraper system. Now **every JSON file is automatically converted to CSV format** during scraping, and existing files can be batch converted.
-
-## 🎯 Key Features Added
-
-### 1. **Automatic CSV Generation During Scraping**
-
-- **Main fixtures file**: `wsl_all_fixtures_YYYY-MM-DD.csv` (all seasons combined)
-- **Individual season files**: `wsl_fixtures_SEASON_YYYY-MM-DD.csv` (per season)
-- **Summary file**: `wsl_fixtures_summary_YYYY-MM-DD.csv` (statistics)
-
-### 2. **Comprehensive CSV Format**
-
-**Main CSV Headers:**
-
-```csv
-season,gameweek,date,day_of_week,start_time,home_team,away_team,
-home_score,away_score,score,home_xg,away_xg,venue,attendance,
-referee,status,result,home_team_url,away_team_url,match_report_url
-```
-
-**Individual Season CSV Headers:**
-
-```csv
-gameweek,date,day_of_week,start_time,home_team,away_team,
-home_score,away_score,score,home_xg,away_xg,venue,attendance,
-referee,status,result,home_team_url,away_team_url,match_report_url
-```
-
-### 3. **Batch Conversion Utilities**
-
-- **`convert-all-fixtures-csv.js`** - Converts all existing JSON files to CSV
-- **`test-csv-conversion.js`** - Tests CSV conversion functionality
-- **`convert-fixtures-to-csv.js`** - Original conversion utility
-
-## 📊 Current Data Files Generated
-
-### ✅ **Successfully Created Files:**
-
-**Main Fixtures (All Seasons Combined):**
-
-- `wsl_all_seasons_fixtures_2025-10-30.json` (6,524 lines)
-- `wsl_all_seasons_fixtures_2025-10-30.csv` (99 KB, 264 fixtures)
-
-**Individual Season Files:**
-
-- `wsl_fixtures_2024-2025_2025-10-30.json` + `.csv` (132 fixtures, 48 KB)
-- `wsl_fixtures_2023-2024_2025-10-30.json` + `.csv` (132 fixtures, 48 KB)
-
-**Summary:**
-
-- `wsl_fixtures_summary_2025-10-30.csv` (Season statistics)
-
-## 📋 Sample CSV Data
-
-### Main CSV Format (with season column):
-
-```csv
-season,gameweek,date,day_of_week,start_time,home_team,away_team,home_score,away_score,score,home_xg,away_xg,venue,attendance,referee,status,result
-2024-2025,1,2024-09-20,Fri,19:00 (11:00),Chelsea,Aston Villa,1,,1–0,1.1,0.9,Cherry Red Records Fans' Stadium,4337,Kirsty Dowle,completed,home_win
-2024-2025,1,2024-09-21,Sat,12:00 (04:00),Manchester Utd,West Ham,3,,3–0,1.2,0.9,Old Trafford,8761,Cheryl Foster,completed,home_win
-```
-
-### Individual Season CSV Format:
-
-```csv
-gameweek,date,day_of_week,start_time,home_team,away_team,home_score,away_score,score,home_xg,away_xg,venue,attendance,referee,status,result
-1,2024-09-20,Fri,19:00 (11:00),Chelsea,Aston Villa,1,,1–0,1.1,0.9,Cherry Red Records Fans' Stadium,4337,Kirsty Dowle,completed,home_win
-1,2024-09-21,Sat,12:00 (04:00),Manchester Utd,West Ham,3,,3–0,1.2,0.9,Old Trafford,8761,Cheryl Foster,completed,home_win
-```
-
-## 🔧 Implementation Details
-
-### **Updated Functions in `wsl-fixtures-scraper.js`:**
-
-1. **`convertFixturesToCSV(fixturesData)`** - Converts combined seasons data
-2. **`convertSingleSeasonToCSV(seasonData)`** - Converts individual season data
-3. **Updated file saving logic** - Automatically generates CSV files
-
-### **Key Features:**
-
-- **Proper CSV escaping** for commas and quotes
-- **Comprehensive field mapping** including URLs
-- **Empty field handling** for missing data
-- **Automatic file naming** with timestamps
-- **Size reporting** for generated files
-
-## 🚀 Usage Examples
-
-### **Automatic CSV Generation (Future Scraping):**
-
-```bash
-# All future scraping runs will automatically generate CSV files
-node test-fixtures.js           # Test with 2 seasons + CSV
-node scrape-all-wsl-fixtures.js # All seasons + CSV
-```
-
-### **Convert Existing Files:**
-
-```bash
-# Convert all existing JSON fixtures to CSV
-node convert-all-fixtures-csv.js
-```
-
-### **Programmatic Usage:**
-
-```javascript
-import { convertFixturesToCSV } from "./wsl-fixtures-scraper.js";
-
-const jsonData = JSON.parse(fs.readFileSync("fixtures.json", "utf8"));
-const csvContent = convertFixturesToCSV(jsonData);
-fs.writeFileSync("fixtures.csv", csvContent);
-```
-
-## 📈 File Size & Performance
-
-### **Current Results:**
-
-- **Main CSV**: 99 KB (264 fixtures from 2 seasons)
-- **Individual CSVs**: 48 KB each (132 fixtures per season)
-- **Conversion Speed**: ~1 second per file
-- **Expected Full Dataset**: ~500 KB CSV for all 10 seasons (~1,300 fixtures)
-
-### **CSV Structure Efficiency:**
-
-- **Headers**: 20 columns of comprehensive match data
-- **URLs Included**: Direct links to teams, players, match reports
-- **Data Types**: Proper handling of scores, attendance, xG data
-- **Status Fields**: Match status (completed/scheduled) and results
-
-## 🎯 Future Scraping Benefits
-
-### **When Running Full Scraper (All 10 Seasons):**
-
-**Expected Output Files:**
-
-```
-📁 data/
-├── wsl_all_seasons_fixtures_YYYY-MM-DD.json    (~15-20 MB)
-├── wsl_all_seasons_fixtures_YYYY-MM-DD.csv     (~500 KB)
-├── wsl_fixtures_2025-2026_YYYY-MM-DD.json      (~1-2 MB)
-├── wsl_fixtures_2025-2026_YYYY-MM-DD.csv       (~50 KB)
-├── wsl_fixtures_2024-2025_YYYY-MM-DD.json
-├── wsl_fixtures_2024-2025_YYYY-MM-DD.csv
-├── ... (for each season)
-└── wsl_fixtures_summary_YYYY-MM-DD.csv         (<5 KB)
-```
-
-**Total Expected Data:**
-
-- **~1,300 fixtures** across all seasons
-- **~15-20 MB** total JSON data
-- **~500 KB** total CSV data
-- **Clean, structured data** ready for analysis
-
-## ✨ Summary
-
-### ✅ **Completed Features:**
-
-1. **Automatic CSV generation** integrated into scraper
-2. **Batch conversion utility** for existing files
-3. **Comprehensive CSV format** with all fixture data
-4. **Proper data handling** and CSV escaping
-5. **Individual and combined file formats**
-6. **File size optimization** and reporting
-
-### 🎉 **Benefits:**
-
-- **Easy data analysis** in Excel, Google Sheets, or data tools
-- **Database import ready** format
-- **Preserved data integrity** with proper escaping
-- **Comprehensive coverage** of all match details
-- **Future-proof** - all new scraping includes CSV
-
-The WSL fixtures scraper now provides complete data coverage in both JSON (for developers) and CSV (for analysis) formats, making the data accessible to a wide range of users and use cases!
