@@ -165,4 +165,4 @@ MIT
 
 ## 👤 Author
 
-naksuu24
+naksuu24 & Rizal Anditama
