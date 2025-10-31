@@ -708,7 +708,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     if (saveToFile) {
       // Save comprehensive data
       const timestamp = new Date().toISOString().split("T")[0];
-      const fixturesFilename = `data/wsl_all_seasons_fixtures_${timestamp}.json`;
+      const fixturesFilename = `data/wsl_all_seasons_fixtures_${timestamp}.json`; /// --------------------- IMPORTANT ---
 
       // Ensure data directory exists
       if (!fs.existsSync("data")) {
@@ -724,25 +724,25 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
       fs.writeFileSync(mainCsvFilename, csvContent);
       console.log(`📊 All fixtures CSV saved to: ${mainCsvFilename}`);
 
-      // Save individual season files (both JSON and CSV)
-      allFixturesData.forEach((seasonData) => {
-        if (seasonData.status === "success" && seasonData.fixtures_count > 0) {
-          const seasonName = seasonData.season.replace("/", "-");
+    //   // Save individual season files (both JSON and CSV)
+    //   allFixturesData.forEach((seasonData) => {
+    //     if (seasonData.status === "success" && seasonData.fixtures_count > 0) {
+    //       const seasonName = seasonData.season.replace("/", "-");
 
-          // Save JSON
-          const seasonJsonFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.json`;
-          fs.writeFileSync(
-            seasonJsonFilename,
-            JSON.stringify(seasonData, null, 2)
-          );
+    //       // Save JSON
+    //       const seasonJsonFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.json`;
+    //       fs.writeFileSync(
+    //         seasonJsonFilename,
+    //         JSON.stringify(seasonData, null, 2)
+    //       );
 
-          // Save CSV
-          const seasonCsvFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.csv`;
-          const seasonCsvContent = convertSingleSeasonToCSV(seasonData);
-          fs.writeFileSync(seasonCsvFilename, seasonCsvContent);
-          console.log(`📄 ${seasonData.season}: JSON and CSV saved`);
-        }
-      });
+    //       // Save CSV
+    //       const seasonCsvFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.csv`;
+    //       const seasonCsvContent = convertSingleSeasonToCSV(seasonData);
+    //       fs.writeFileSync(seasonCsvFilename, seasonCsvContent);
+    //       console.log(`📄 ${seasonData.season}: JSON and CSV saved`);
+    //     }
+    //   });
 
       // Create CSV summary
       const csvData = [];
