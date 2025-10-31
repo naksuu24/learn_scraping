@@ -20,9 +20,8 @@ async function scrapeWSLSeasons() {
   let jsonData = null;
 
   try {
-    const url =
-      "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons";
-    console.log("Navigating to Women's Super League seasons history page...");
+    const url = "https://fbref.com/en/comps/193/history/Premiere-Ligue-Seasons";
+    console.log("Navigating to Premiere Ligue seasons history page...");
 
     // Add retry logic for page navigation (same as read_all_leagues)
     let retries = 3;
@@ -170,16 +169,18 @@ async function scrapeWSLSeasons() {
           const cellText = cell.textContent.trim();
           const dataStat = header.dataStat;
 
+          // Map data-stat attributes to field names, with fallbacks
+          let fieldName;
+
           // Skip empty cells,
           // Instead of skipping, we might want to add null or N/A
           // if (!cellText) return;
           if (!cellText) {
+            // We'll set fieldName to a default if not determined yet
+            fieldName = dataStat || "unknown_field";
             rowData[fieldName] = null; // or "N/A"
             return;
           }
-
-          // Map data-stat attributes to field names, with fallbacks
-          let fieldName;
           if (dataStat) {
             // Use data-stat but map to readable names
             switch (dataStat) {
@@ -307,8 +308,8 @@ async function scrapeWSLSeasons() {
       .toISOString()
       .replace(/[:.]/g, "-")
       .split("T")[0];
-    const jsonFilename = `data/womens_super_league_seasons_${timestamp}.json`;
-    const csvFilename = `data/womens_super_league_seasons_${timestamp}.csv`;
+    const jsonFilename = `data/womens_league_seasons_${timestamp}.json`;
+    const csvFilename = `data/womens_league_seasons_${timestamp}.csv`;
 
     // Ensure data directory exists
     if (!fs.existsSync("data")) {
@@ -321,7 +322,7 @@ async function scrapeWSLSeasons() {
 
     // Convert to CSV and save
     try {
-        // This Map to CSV is not working 
+      // This Map to CSV is not working
       const csvContent = convertToCSV(jsonData);
       fs.writeFileSync(csvFilename, csvContent);
       console.log(`Data has been saved to ${csvFilename}`);
@@ -347,7 +348,7 @@ async function scrapeWSLSeasons() {
           ),
         ];
 
-        const fallbackCsvFilename = `data/womens_super_league_seasons_simple_${timestamp}.csv`;
+        const fallbackCsvFilename = `data/womens_league_seasons_simple_${timestamp}.csv`;
         fs.writeFileSync(fallbackCsvFilename, csvRows.join("\n"));
         console.log(`Fallback CSV saved to ${fallbackCsvFilename}`);
       }

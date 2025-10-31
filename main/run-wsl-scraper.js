@@ -6,7 +6,7 @@ import {
 async function runWSLScraper() {
   try {
     console.log("=".repeat(60));
-    console.log("WOMEN'S SUPER LEAGUE SEASONS SCRAPER");
+    console.log("WOMEN'S LEAGUE SEASONS SCRAPER");
     console.log("=".repeat(60));
 
     // First analyze the page structure (optional, for debugging)

@@ -149,22 +149,23 @@ function convertSingleSeasonToCSV(seasonData) {
 function convertToFixturesUrl(seasonUrl, season) {
   // Handle current season (no year in URL)
   if (
-    seasonUrl.includes("/Womens-Super-League-Stats") &&
+    seasonUrl.includes("/Premiere-Ligue-Stats") &&
     !seasonUrl.includes("/20")
   ) {
-    return `https://fbref.com/en/comps/189/schedule/Womens-Super-League-Scores-and-Fixtures`;
+    // return `https://fbref.com/en/comps/189/schedule/Womens-Super-League-Scores-and-Fixtures`;
+    return `https://fbref.com/en/comps/189/schedule/Premiere-Ligue-Scores-and-Fixtures`;
   }
 
   // Handle historical seasons
   if (seasonUrl.includes(`/${season}/`)) {
     return seasonUrl.replace(
-      `/${season}-Womens-Super-League-Stats`,
-      `/schedule/${season}-Womens-Super-League-Scores-and-Fixtures`
+      `/${season}-Premiere-Ligue-Stats`,
+      `/schedule/${season}-Premiere-Ligue-Scores-and-Fixtures`
     );
   }
 
   // Fallback construction
-  return `https://fbref.com/en/comps/189/${season}/schedule/${season}-Womens-Super-League-Scores-and-Fixtures`;
+  return `https://fbref.com/en/comps/189/${season}/schedule/${season}-Premiere-Ligue-Scores-and-Fixtures`;
 }
 
 /**
@@ -569,7 +570,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     onlySeasons = null, // Array of specific seasons to scrape
   } = options;
 
-  console.log("🚀 Starting Women's Super League Fixtures Scraper");
+  console.log("🚀 Starting Women's League Fixtures Scraper");
   console.log("=".repeat(60));
 
   // Load seasons data
@@ -582,7 +583,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     const dataFiles = fs
       .readdirSync("data")
       .filter(
-        (f) => f.includes("womens_super_league_seasons") && f.endsWith(".json")
+        (f) => f.includes("womens_league_seasons") && f.endsWith(".json")
       );
     if (dataFiles.length === 0) {
       throw new Error(
@@ -687,7 +688,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     const compiledData = {
       timestamp: new Date().toISOString(),
       source: "fbref.com",
-      competition: "Women's Super League",
+      competition: "Women's League",
       competition_id: "189",
       scraping_summary: {
         total_seasons_processed: processedCount,
@@ -708,7 +709,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     if (saveToFile) {
       // Save comprehensive data
       const timestamp = new Date().toISOString().split("T")[0];
-      const fixturesFilename = `data/wsl_all_seasons_fixtures_${timestamp}.json`; /// --------------------- IMPORTANT ---
+      const fixturesFilename = `data/wsl_all_seasons_fixtures_${timestamp}.json`;
 
       // Ensure data directory exists
       if (!fs.existsSync("data")) {
