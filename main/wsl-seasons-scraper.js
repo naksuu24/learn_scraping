@@ -2,8 +2,8 @@ import { chromium } from "playwright";
 import fs from "fs";
 import { convertToCSV } from "./csvConverter.js";
 
-// Function to scrape Women's Super League seasons history
-async function scrapeWSLSeasons() {
+// Function to scrape football competition seasons history
+async function scrapeWSLSeasons(competitionUrl = null, competitionInfo = null) {
   const browser = await chromium.launch({
     headless: false,
     channel: "msedge",
@@ -20,8 +20,12 @@ async function scrapeWSLSeasons() {
   let jsonData = null;
 
   try {
-    const url = "https://fbref.com/en/comps/193/history/Premiere-Ligue-Seasons";
-    console.log("Navigating to Premiere Ligue seasons history page...");
+    // Default to WSL if no URL provided
+    const url =
+      competitionUrl ||
+      "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons";
+    const competitionName = competitionInfo?.name || "Football Competition";
+    console.log(`Navigating to ${competitionName} seasons history page...`);
 
     // Add retry logic for page navigation (same as read_all_leagues)
     let retries = 3;
@@ -266,11 +270,6 @@ async function scrapeWSLSeasons() {
 
         // Only add rows that have essential data (season info)
         if (rowData.season && rowData.season !== "Season") {
-          // Add metadata
-          rowData.league = "Women's Super League";
-          rowData.country = "England";
-          rowData.gender = "F";
-
           data.push(rowData);
           console.log(`Added row ${rowIndex}:`, rowData);
         }
@@ -280,27 +279,30 @@ async function scrapeWSLSeasons() {
       return data;
     });
 
+    // Add metadata to each season row (outside page.evaluate context)
+    seasonsData.forEach((rowData) => {
+      if (rowData) {
+        rowData.league = competitionInfo?.id || "unknown";
+        rowData.gender = "F"; // Default to female, can be made configurable later
+      }
+    });
+
     // Create comprehensive data structure
     jsonData = {
       timestamp: new Date().toISOString(),
       source: "fbref.com",
-      competition: "Women's Super League",
-      country: "England",
-      gender: "Women",
-      competition_id: "189",
+      competition: competitionInfo?.name || "Football Competition",
+      competition_id: competitionInfo?.id || "unknown",
       source_url: url,
       seasons_count: seasonsData.length,
       data_fields: seasonsData.length > 0 ? Object.keys(seasonsData[0]) : [],
-      // We dont have the winner for the latest year comp
-      // Is there a way to fix it and just add None
       seasons: seasonsData,
-      // We actually dont need Metadata
-      metadata: {
-        scraping_method: "playwright",
-        browser: "msedge",
-        extraction_date: new Date().toISOString(),
-        // page_structure: pageStructure,
-      },
+      //   metadata: {
+      //     scraping_method: "playwright",
+      //     browser: "msedge",
+      //     extraction_date: new Date().toISOString(),
+      //     original_url: competitionUrl,
+      //   },
     };
 
     // Save to files with descriptive names
@@ -308,8 +310,14 @@ async function scrapeWSLSeasons() {
       .toISOString()
       .replace(/[:.]/g, "-")
       .split("T")[0];
-    const jsonFilename = `data/womens_league_seasons_${timestamp}.json`;
-    const csvFilename = `data/womens_league_seasons_${timestamp}.csv`;
+
+    // Create filename based on competition
+    const competitionSlug = (competitionInfo?.name || "football_competition")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "_");
+
+    const jsonFilename = `data/${competitionSlug}_seasons_${timestamp}.json`;
+    const csvFilename = `data/${competitionSlug}_seasons_${timestamp}.csv`;
 
     // Ensure data directory exists
     if (!fs.existsSync("data")) {
@@ -348,7 +356,7 @@ async function scrapeWSLSeasons() {
           ),
         ];
 
-        const fallbackCsvFilename = `data/womens_league_seasons_simple_${timestamp}.csv`;
+        const fallbackCsvFilename = `data/${competitionSlug}_seasons_${timestamp}_simple.csv`;
         fs.writeFileSync(fallbackCsvFilename, csvRows.join("\n"));
         console.log(`Fallback CSV saved to ${fallbackCsvFilename}`);
       }
@@ -384,8 +392,11 @@ async function scrapeWSLSeasons() {
       timestamp: new Date().toISOString(),
       error: error.message,
       stack: error.stack,
-      url: "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons",
-      scraping_attempt: "womens_super_league_seasons",
+      url: url || competitionUrl || "unknown",
+      scraping_attempt:
+        (competitionInfo?.name || "football_competition")
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "_") + "_seasons",
     };
 
     fs.writeFileSync(
@@ -419,15 +430,12 @@ async function analyzeWSLPageStructure() {
   const page = await context.newPage();
 
   try {
-    console.log("Analyzing Women's Super League page structure...");
+    console.log("Analyzing League page structure...");
 
-    await page.goto(
-      "https://fbref.com/en/comps/189/history/Womens-Super-League-Seasons",
-      {
-        waitUntil: "domcontentloaded",
-        timeout: 60000,
-      }
-    );
+    await page.goto(competitionUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
 
     await page.waitForTimeout(5000);
 
@@ -482,6 +490,6 @@ export { scrapeWSLSeasons, analyzeWSLPageStructure };
 
 // Run the scraper if this file is executed directly
 if (import.meta.url === new URL(process.argv[1], "file://").href) {
-  console.log("Starting Women's Super League seasons scraper...");
+  console.log("Starting League seasons scraper...");
   scrapeWSLSeasons().catch(console.error);
 }

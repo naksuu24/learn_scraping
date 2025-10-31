@@ -141,31 +141,48 @@ function convertSingleSeasonToCSV(seasonData) {
  */
 
 /**
- * Convert a season stats URL to a fixtures URL
+ * Convert a season stats URL to a fixtures URL - GENERAL VERSION
  * @param {string} seasonUrl - The season stats URL
  * @param {string} season - The season identifier (e.g., "2024-2025")
+ * @param {Object} competitionInfo - Competition info with id and name
  * @returns {string} The fixtures URL
  */
-function convertToFixturesUrl(seasonUrl, season) {
-  // Handle current season (no year in URL)
+function convertToFixturesUrl(seasonUrl, season, competitionInfo) {
+  // Extract competition ID and name from competition info or URL
+  let competitionId = competitionInfo?.id;
+  let competitionName = competitionInfo?.name;
+
+  if (!competitionId && seasonUrl) {
+    // Extract competition ID from season URL: /comps/{ID}/
+    const matches = seasonUrl.match(/\/comps\/(\d+)\//);
+    competitionId = matches ? matches[1] : "189"; // default to WSL
+  }
+
+  if (!competitionName && seasonUrl) {
+    // Extract competition name from URL
+    const parts = seasonUrl.split("/");
+    const nameWithStats = parts[parts.length - 1] || "";
+    competitionName = nameWithStats.replace("-Stats", "");
+  }
+
+  // Fallback competition name
+  if (!competitionName) {
+    competitionName = "Competition";
+  }
+
+  // Build the fixtures URL - FBref format is: /comps/{ID}/{season}/schedule/{season}-{CompetitionName}-Scores-and-Fixtures
+  // For current season: /comps/{ID}/schedule/{CompetitionName}-Scores-and-Fixtures
+
+  // Handle current season (no year in URL path)
   if (
-    seasonUrl.includes("/Premiere-Ligue-Stats") &&
-    !seasonUrl.includes("/20")
+    seasonUrl &&
+    !seasonUrl.includes("/20") // No year means current season
   ) {
-    // return `https://fbref.com/en/comps/189/schedule/Womens-Super-League-Scores-and-Fixtures`;
-    return `https://fbref.com/en/comps/189/schedule/Premiere-Ligue-Scores-and-Fixtures`;
+    return `https://fbref.com/en/comps/${competitionId}/schedule/${competitionName}-Scores-and-Fixtures`;
   }
 
-  // Handle historical seasons
-  if (seasonUrl.includes(`/${season}/`)) {
-    return seasonUrl.replace(
-      `/${season}-Premiere-Ligue-Stats`,
-      `/schedule/${season}-Premiere-Ligue-Scores-and-Fixtures`
-    );
-  }
-
-  // Fallback construction
-  return `https://fbref.com/en/comps/189/${season}/schedule/${season}-Premiere-Ligue-Scores-and-Fixtures`;
+  // Handle historical seasons - build from scratch to ensure correct format
+  return `https://fbref.com/en/comps/${competitionId}/${season}/schedule/${season}-${competitionName}-Scores-and-Fixtures`;
 }
 
 /**
@@ -558,7 +575,7 @@ async function scrapeSingleSeasonFixtures(browser, fixturesUrl, season) {
 }
 
 /**
- * Main function to scrape all season fixtures
+ * Main function to scrape all season fixtures - GENERAL VERSION
  * @param {string} seasonsDataFile - Path to the seasons JSON file
  * @param {Object} options - Scraping options
  */
@@ -570,21 +587,16 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     onlySeasons = null, // Array of specific seasons to scrape
   } = options;
 
-  console.log("🚀 Starting Women's League Fixtures Scraper");
-  console.log("=".repeat(60));
-
-  // Load seasons data
+  // Load seasons data first to get competition info
   let seasonsData;
   if (seasonsDataFile && fs.existsSync(seasonsDataFile)) {
     console.log(`📂 Loading seasons data from: ${seasonsDataFile}`);
     seasonsData = JSON.parse(fs.readFileSync(seasonsDataFile, "utf8"));
   } else {
-    // Use most recent seasons file
+    // Use most recent seasons file - look for any competition seasons file
     const dataFiles = fs
       .readdirSync("data")
-      .filter(
-        (f) => f.includes("womens_league_seasons") && f.endsWith(".json")
-      );
+      .filter((f) => f.includes("_seasons") && f.endsWith(".json"));
     if (dataFiles.length === 0) {
       throw new Error(
         "No seasons data file found. Please run the seasons scraper first."
@@ -592,9 +604,20 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     }
 
     const latestFile = dataFiles.sort().reverse()[0];
-    console.log(`📂 Loading latest seasons data: data/${latestFile}`);
+    console.log(`� Loading latest seasons data: data/${latestFile}`);
     seasonsData = JSON.parse(fs.readFileSync(`data/${latestFile}`, "utf8"));
   }
+
+  // Extract competition info from seasons data
+  const competitionInfo = {
+    id: seasonsData.competition_id || "unknown",
+    name: seasonsData.competition || "Football Competition",
+  };
+
+  console.log("🚀 Starting Football Competition Fixtures Scraper");
+  console.log("=".repeat(60));
+  console.log(`🏆 Competition: ${competitionInfo.name}`);
+  console.log(`🆔 Competition ID: ${competitionInfo.id}`);
 
   console.log(`📊 Found ${seasonsData.seasons_count} seasons to process`);
 
@@ -646,7 +669,8 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
       const batchPromises = batch.map((seasonData) => {
         const fixturesUrl = convertToFixturesUrl(
           seasonData.season_url,
-          seasonData.season
+          seasonData.season,
+          competitionInfo
         );
         return scrapeSingleSeasonFixtures(
           browser,
@@ -688,8 +712,8 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     const compiledData = {
       timestamp: new Date().toISOString(),
       source: "fbref.com",
-      competition: "Women's League",
-      competition_id: "189",
+      competition: competitionInfo?.name || "Football Competition",
+      competition_id: competitionInfo?.id || "unknown",
       scraping_summary: {
         total_seasons_processed: processedCount,
         successful_seasons: successCount,
@@ -709,7 +733,13 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
     if (saveToFile) {
       // Save comprehensive data
       const timestamp = new Date().toISOString().split("T")[0];
-      const fixturesFilename = `data/wsl_all_seasons_fixtures_${timestamp}.json`;
+
+      // Create filename based on competition
+      const competitionSlug = (competitionInfo?.name || "football_competition")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "_");
+
+      const fixturesFilename = `data/${competitionSlug}_all_seasons_fixtures_${timestamp}.json`;
 
       // Ensure data directory exists
       if (!fs.existsSync("data")) {
@@ -720,30 +750,30 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
       console.log(`\n💾 All fixtures data saved to: ${fixturesFilename}`);
 
       // Save comprehensive CSV file with all fixtures
-      const mainCsvFilename = `data/wsl_all_fixtures_${timestamp}.csv`;
+      const mainCsvFilename = `data/${competitionSlug}_all_fixtures_${timestamp}.csv`;
       const csvContent = convertFixturesToCSV(compiledData);
       fs.writeFileSync(mainCsvFilename, csvContent);
       console.log(`📊 All fixtures CSV saved to: ${mainCsvFilename}`);
 
-    //   // Save individual season files (both JSON and CSV)
-    //   allFixturesData.forEach((seasonData) => {
-    //     if (seasonData.status === "success" && seasonData.fixtures_count > 0) {
-    //       const seasonName = seasonData.season.replace("/", "-");
+      //   // Save individual season files (both JSON and CSV)
+      //   allFixturesData.forEach((seasonData) => {
+      //     if (seasonData.status === "success" && seasonData.fixtures_count > 0) {
+      //       const seasonName = seasonData.season.replace("/", "-");
 
-    //       // Save JSON
-    //       const seasonJsonFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.json`;
-    //       fs.writeFileSync(
-    //         seasonJsonFilename,
-    //         JSON.stringify(seasonData, null, 2)
-    //       );
+      //       // Save JSON
+      //       const seasonJsonFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.json`;
+      //       fs.writeFileSync(
+      //         seasonJsonFilename,
+      //         JSON.stringify(seasonData, null, 2)
+      //       );
 
-    //       // Save CSV
-    //       const seasonCsvFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.csv`;
-    //       const seasonCsvContent = convertSingleSeasonToCSV(seasonData);
-    //       fs.writeFileSync(seasonCsvFilename, seasonCsvContent);
-    //       console.log(`📄 ${seasonData.season}: JSON and CSV saved`);
-    //     }
-    //   });
+      //       // Save CSV
+      //       const seasonCsvFilename = `data/wsl_fixtures_${seasonName}_${timestamp}.csv`;
+      //       const seasonCsvContent = convertSingleSeasonToCSV(seasonData);
+      //       fs.writeFileSync(seasonCsvFilename, seasonCsvContent);
+      //       console.log(`📄 ${seasonData.season}: JSON and CSV saved`);
+      //     }
+      //   });
 
       // Create CSV summary
       const csvData = [];
@@ -754,7 +784,7 @@ async function scrapeAllSeasonFixtures(seasonsDataFile = null, options = {}) {
         );
       });
 
-      const csvFilename = `data/wsl_fixtures_summary_${timestamp}.csv`;
+      const csvFilename = `data/${competitionSlug}_fixtures_summary_${timestamp}.csv`;
       fs.writeFileSync(csvFilename, csvData.join("\n"));
       console.log(`📊 Summary CSV saved to: ${csvFilename}`);
     }
