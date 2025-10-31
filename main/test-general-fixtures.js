@@ -1,4 +1,4 @@
-import { scrapeAllSeasonFixtures } from "./wsl-fixtures-scraper.js";
+import { scrapeAllSeasonFixtures } from "./all-fixtures-scraper.js";
 
 async function testGeneralFixturesScraper() {
   try {

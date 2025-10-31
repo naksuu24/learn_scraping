@@ -57,10 +57,10 @@ pwd
 
 ### First Time Setup: Get Seasons Data
 
-Run this first to scrape WSL seasons metadata:
+Run this first to scrape Tournament seasons metadata:
 
 ```powershell
-node run-wsl-scraper.js
+node run-scraper.js
 ```
 
 This will create the seasons data file that the fixture scrapers need.
@@ -80,7 +80,7 @@ node test-fixtures.js
 Scrapes all WSL seasons (~15-25 minutes, ~1,300 fixtures):
 
 ```powershell
-node scrape-all-wsl-fixtures.js
+node scrape-all-fixtures.js
 ```
 
 ## Step 5: Check Your Results
@@ -93,9 +93,9 @@ ls data
 
 **Expected files:**
 
-- `wsl_all_seasons_fixtures_[date].json` - All fixtures (JSON)
-- `wsl_all_fixtures_[date].csv` - All fixtures (CSV)
-- `wsl_fixtures_summary_[date].csv` - Summary statistics
+- `[League Name]_all_seasons_fixtures_[date].json` - All fixtures (JSON)
+- `[League Name]_all_fixtures_[date].csv` - All fixtures (CSV)
+- `[League Name]_fixtures_summary_[date].csv` - Summary statistics
 - Individual season JSON and CSV files
 
 ---
@@ -108,11 +108,11 @@ learn_scraping/
 ├── README.md                       # This file
 ├── node_modules/                   # Installed dependencies
 └── main/                          # Main application directory
-    ├── scrape-all-wsl-fixtures.js # Full scraper (all 10 seasons)
+    ├── scrape-all-fixtures.js     # Full scraper (all seasons)
     ├── test-fixtures.js           # Test scraper (2 seasons)
-    ├── wsl-fixtures-scraper.js    # Core fixtures scraping logic
-    ├── wsl-seasons-scraper.js     # Seasons data scraper
-    ├── run-wsl-scraper.js         # WSL scraper runner
+    ├── all-fixtures-scraper.js    # Core fixtures scraping logic
+    ├── all-seasons-scraper.js     # Seasons data scraper
+    ├── run-scraper.js         # WSL scraper runner
     ├── csvConverter.js            # CSV conversion utilities
     └── data/                      # Output directory for scraped data
         ├── *.json                 # JSON data files
@@ -123,22 +123,6 @@ learn_scraping/
 
 All scraped data is saved in the `main/data/` directory:
 
-### Main Output Files:
-
-- `wsl_all_seasons_fixtures_[date].json` - Complete fixtures data for all seasons
-- `wsl_fixtures_summary_[date].csv` - Summary statistics
-- `wsl_all_fixtures_[date].csv` - All fixtures in CSV format
-
-### Individual Season Files:
-
-- `wsl_fixtures_[season]_[date].json` - Individual season fixtures (JSON)
-- `wsl_fixtures_[season]_[date].csv` - Individual season fixtures (CSV)
-
-### Seasons Data:
-
-- `womens_super_league_seasons_[date].json` - Seasons metadata
-- `womens_super_league_seasons_[date].csv` - Seasons data in CSV
-
 ## ⏱️ Expected Runtime
 
 - **Test Scraper:** ~2-3 minutes (2 seasons)
@@ -147,7 +131,7 @@ All scraped data is saved in the `main/data/` directory:
 
 ## 🎯 Features
 
-- ✅ Scrapes all 10 WSL seasons (2014-2015 to 2024-2025)
+- ✅ Scrapes all tournament seasons (2014-2015 to 2024-2025)
 - ✅ Extracts comprehensive fixture data (dates, teams, scores, venues, etc.)
 - ✅ Concurrent scraping (2 seasons at a time) for efficiency
 - ✅ Robust error handling and retry logic
@@ -157,7 +141,7 @@ All scraped data is saved in the `main/data/` directory:
 
 ## 📄 Data Source
 
-FBref URL: https://fbref.com/en/comps/189/2024-2025/schedule/2024-2025-Womens-Super-League-Scores-and-Fixtures
+FBref URL: https://fbref.com/en/comps
 
 ## 📄 License
 

@@ -1,7 +1,7 @@
 import {
   scrapeWSLSeasons,
   analyzeWSLPageStructure,
-} from "./wsl-seasons-scraper.js";
+} from "./all-seasons-scraper.js";
 import readline from "readline";
 
 async function getCompetitionUrl() {
