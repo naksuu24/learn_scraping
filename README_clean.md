@@ -1,4 +1,4 @@
-# WSL Fixtures Scraper
+# FBreff Fixtures Scraper
 
 A Node.js web scraping project to collect Women's Super League (WSL) fixtures data using Playwright.
 
@@ -49,11 +49,11 @@ Verify you're in the correct directory:
 pwd
 ```
 
-**Expected output:** `C:\Users\Naufal\OneDrive\Documents\learn_scraping\main`
+**Expected output:** `C:\Users\Name\OneDrive\Documents\learn_scraping\main`
 
 ## Step 4: Run the Scraper
 
-**⚠️ IMPORTANT:** You must run `run-wsl-scraper.js` first to get the seasons data before running any fixture scrapers.
+**⚠️ IMPORTANT:** You must run `run-scraper.js` first to get the seasons data before running any fixture scrapers.
 
 ### First Time Setup: Get Seasons Data
 
@@ -150,3 +150,4 @@ MIT
 ## 👤 Author
 
 naksuu24 & Rizal Anditama
+
