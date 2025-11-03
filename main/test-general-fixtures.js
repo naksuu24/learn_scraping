@@ -7,7 +7,7 @@ async function testGeneralFixturesScraper() {
 
     // Test with just the most recent seasons first
     const options = {
-      onlySeasons: ["2024-2025", "2023-2024"], // Adjust based on available seasons
+      onlySeasons: ["2025-2026", "2024-2025", "2023-2024"], // Adjust based on available seasons
       maxConcurrent: 1, // Be gentle for testing
       saveToFile: true,
     };
