@@ -53,7 +53,7 @@ pwd
 
 ## Step 4: Run the Scraper
 
-**⚠️ IMPORTANT:** You must run `run-wsl-scraper.js` first to get the seasons data before running any fixture scrapers.
+**⚠️ IMPORTANT:** You must run `all-seasons-scraper.js` first to get the seasons data before running any fixture scrapers.
 
 ### First Time Setup: Get Seasons Data
 

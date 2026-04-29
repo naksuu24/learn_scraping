@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-11-01T06:06:19.820Z",
+  "timestamp": "2026-01-04T01:16:56.808Z",
   "source": "fbref.com",
-  "competition": "Premier League",
+  "competition": "Premier League\\",
   "competition_id": "9",
-  "source_url": "https://fbref.com/en/comps/9/history/Premier-League-Seasons",
+  "source_url": "https://fbref.com/en/comps/9/history/Premier-League-Seasons\\",
   "seasons_count": 127,
   "data_fields": [
     "season",
@@ -25,7 +25,7 @@
       "competition_url": "https://fbref.com/en/comps/9/Premier-League-Stats",
       "squads": 20,
       "champ": null,
-      "top_scorer": "Erling Haaland - 11",
+      "top_scorer": "Erling Haaland - 19",
       "top_scorer_url": "https://fbref.com/en/players/1f44ac21/Erling-Haaland",
       "league": "9",
       "gender": "F"
